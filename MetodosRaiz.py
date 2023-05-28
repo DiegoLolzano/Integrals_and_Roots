@@ -30,14 +30,17 @@ def biseccion(f, xl, xu, tolerancia):
 
 #Determinación por Regla Falsa (Regula Falsi)
 
-def regula_falsi(f, xl, xu, tol):
+def regula_falsi(f, xl, xu, tolerancia):
     iteraciones = 0
     xr = xu - ((f(xu) * (xl - xu)) / (f(xl) - f(xu)))
     ea = 100
 
-    while ea > tol:
+    while ea > tolerancia:
         xr_anterior = xr
         xr = xu - ((f(xu) * (xl - xu)) / (f(xl) - f(xu)))
+
+        if xr != 0:
+            ea = abs((xr - xr_anterior) / xr ) * 100
 
         if f(xr) * f(xl) < 0:
             xu = xr
@@ -52,29 +55,43 @@ def regula_falsi(f, xl, xu, tol):
     return xr
 
 #Determinacion por Metodo de Newton
-def newton(f, df, x0, tol):
+
+def newton(f, df, x0, tolerancia):
     iteraciones = 0
     ea = 100
 
-    while ea > tol:
+    while ea > tolerancia:
         xr_nuevo = x0 - f(x0) / df(x0)
 
         if xr_nuevo != 0:
             ea = abs((xr_nuevo - x0) / xr_nuevo) * 100
         
         x0 = xr_nuevo
-        iteracionese += 1
+        iteraciones += 1
     
     print(f"Raiz encontrada en xr = {x0:.4f} despues de {iteraciones} iteracion(es) con un error de {ea:.5f}% por el metodo de Newton")
+    return x0
 
-metodo = int(input("Escoge el metodo para determinar la raiz de la funcion 3x³ - 2x² + 5x - 10 \n 1-. Bisección \n 2-. Regla Falsa \n Opcion: "))
-xl = float(input("Ingrese el limite inferior: "))
-xu = float(input("Ingrese el limite superior: "))
-tolerancia = float(input("Ingrese la tolerancia de error: "))
+print("Escoge el metodo para determinar la raiz de la funcion 3x³ - 2x² + 5x - 10:")
+print("1. Bisección")
+print("2. Regla Falsa")
+print("3. Metodo de Newton")
+metodo = int(input("Introduzca el número con la opcion que desea elegir: "))
 
 if(metodo == 1):
+    xl = float(input("Ingrese el limite inferior: "))
+    xu = float(input("Ingrese el limite superior: "))
+    tolerancia = float(input("Ingrese la tolerancia de error: "))
     biseccion(f, xl, xu, tolerancia)
 elif(metodo == 2):
+    xl = float(input("Ingrese el limite inferior: "))
+    xu = float(input("Ingrese el limite superior: "))
+    tolerancia = float(input("Ingrese la tolerancia de error: "))
     regula_falsi(f, xl, xu, tolerancia)
+elif(metodo == 3):
+    x0 = float(input("Ingrese la estimación inicial: "))
+    tolerancia = float(input("Ingrese la tolerancia de error: "))
+    df = lambda x: 9 * x ** 2 - 4 * x + 5
+    newton(f, df, x0, tolerancia)
 else:
-    print("No hay ningun metodo asignado con ese valor, porfavor intente de nuevo")
+    print("No hay ninguna opcion con este valor, porfavor intente de nuevo")
