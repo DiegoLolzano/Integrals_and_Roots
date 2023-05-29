@@ -65,11 +65,12 @@ def segunda_derivada_center_mayor(f, x0, h):
 def segunda_derivada_center_menor(f, x0, h):
     return (-f(x0 + 2 * h) + 8 * f(x0 + h) - 8 * f(x0 - h) + f(x0 - 2 * h)) / (6 * (h ** 2))
 
+print("La función dada es: 5x³ + 7x² - 4x + 4")
 print("Por favor seleccione una opción: ")
 print("1. Calcular la aproximación numerica de una integral")
 print("2. Calcular la aproximación de una derivada por metodo forward")
 print("3. Calcular la aproximación de una derivada por metodo backward")
-print("Calcular la aproximación de una derivada por metodo center")
+print("4. Calcular la aproximación de una derivada por metodo center")
 
 opcion = int(input("Introduzca el número correspondiente a su selección: "))
 
